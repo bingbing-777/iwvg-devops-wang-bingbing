@@ -33,4 +33,9 @@ public class UserResource {
     public void deleteUser(@PathVariable Long id) {
         userService.deleteById(id);
     }
+
+    @PutMapping("/user/{id}/active")
+    public void updateActive(@PathVariable Long id) {
+        userService.updateActive(id);
+    }
 }

@@ -24,7 +24,8 @@ public class UserDatabase {
                 "Main Street 10",
                 "Madrid",
                 "Madrid",
-                "28001"
+                "28001",
+                false
         ));
 
         users.add(new User(
@@ -36,7 +37,8 @@ public class UserDatabase {
                 "Second Street 20",
                 "Madrid",
                 "Madrid",
-                "28002"
+                "28002",
+                false
         ));
 
         users.add(new User(
@@ -48,7 +50,8 @@ public class UserDatabase {
                 "Third Street 30",
                 "Barcelona",
                 "Barcelona",
-                "08001"
+                "08001",
+                false
         ));
 
         users.add(new User(
@@ -60,7 +63,8 @@ public class UserDatabase {
                 "Fourth Street 40",
                 "Madrid",
                 "Madrid",
-                "28003"
+                "28003",
+                true
         ));
     }
 
@@ -91,5 +95,13 @@ public class UserDatabase {
 
     public void deleteById(Long id) {
         users.removeIf(user -> user.getId().equals(id));
+    }
+
+    public void updateActive(Long id) {
+        User user = findById(id);
+
+        if (user != null) {
+            user.setActive(true);
+        }
     }
 }

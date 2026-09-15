@@ -30,4 +30,8 @@ public class UserService {
     public void deleteById(Long id) {
         userDatabase.deleteById(id);
     }
+
+    public void updateActive(Long id) {
+        userDatabase.updateActive(id);
+    }
 }
