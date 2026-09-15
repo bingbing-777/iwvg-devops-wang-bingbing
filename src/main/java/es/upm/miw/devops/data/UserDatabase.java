@@ -88,4 +88,8 @@ public class UserDatabase {
 
         return result;
     }
+
+    public void deleteById(Long id) {
+        users.removeIf(user -> user.getId().equals(id));
+    }
 }

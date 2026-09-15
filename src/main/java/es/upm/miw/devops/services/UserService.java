@@ -26,4 +26,8 @@ public class UserService {
     public List<User> findByBillable(Boolean billable) {
         return userDatabase.findByBillable(billable);
     }
+
+    public void deleteById(Long id) {
+        userDatabase.deleteById(id);
+    }
 }
