@@ -90,4 +90,26 @@ public class UserServiceTest {
 
         assertEquals(4, users.size());
     }
+
+    @Test
+    void testUpdateActive() {
+        User user = userService.findById(2L);
+
+        assertFalse(user.isActive());
+
+        userService.updateActive(2L);
+
+        assertTrue(user.isActive());
+    }
+
+    @Test
+    void testUpdateActiveAlreadyActive() {
+        User user = userService.findById(4L);
+
+        assertTrue(user.isActive());
+
+        userService.updateActive(4L);
+
+        assertTrue(user.isActive());
+    }
 }
