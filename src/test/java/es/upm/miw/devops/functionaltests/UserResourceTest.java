@@ -105,6 +105,7 @@ public class UserResourceTest {
 
     @Test
     void testUpdateActiveAlreadyActive() throws Exception {
+
         mockMvc.perform(get("/user/4"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.active").value(true));
