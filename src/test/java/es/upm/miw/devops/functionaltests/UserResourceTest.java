@@ -7,8 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -92,5 +91,29 @@ public class UserResourceTest {
         mockMvc.perform(get("/user"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(4));
+    }
+
+    @Test
+    void testUpdateActive() throws Exception {
+        mockMvc.perform(put("/user/2/active"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/user/2"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.active").value(true));
+    }
+
+    @Test
+    void testUpdateActiveAlreadyActive() throws Exception {
+        mockMvc.perform(get("/user/4"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.active").value(true));
+
+        mockMvc.perform(put("/user/4/active"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/user/4"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.active").value(true));
     }
 }
