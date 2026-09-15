@@ -50,6 +50,18 @@ public class UserDatabase {
                 "Barcelona",
                 "08001"
         ));
+
+        users.add(new User(
+                4L,
+                "Peter",
+                "White",
+                "",
+                "99887766D",
+                "Fourth Street 40",
+                "Madrid",
+                "Madrid",
+                "28003"
+        ));
     }
 
     public User findById(Long id) {
@@ -59,5 +71,21 @@ public class UserDatabase {
             }
         }
         return null;
+    }
+
+    public List<User> findAll() {
+        return users;
+    }
+
+    public List<User> findByBillable(Boolean billable) {
+        List<User> result = new ArrayList<>();
+
+        for (User user : users) {
+            if (user.isBillable() == billable) {
+                result.add(user);
+            }
+        }
+
+        return result;
     }
 }
