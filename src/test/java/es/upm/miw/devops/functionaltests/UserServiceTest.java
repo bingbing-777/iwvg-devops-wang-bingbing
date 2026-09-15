@@ -6,6 +6,8 @@ import es.upm.miw.devops.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserServiceTest {
@@ -38,5 +40,36 @@ public class UserServiceTest {
         User user = userService.findById(999L);
 
         assertNull(user);
+    }
+
+    @Test
+    void testFindByBillableTrue() {
+        List<User> users = userService.findByBillable(true);
+
+        assertEquals(3, users.size());
+
+        for (User user : users) {
+            assertTrue(user.isBillable());
+        }
+    }
+
+    @Test
+    void testFindByBillableFalse() {
+        List<User> users = userService.findByBillable(false);
+
+        assertEquals(1, users.size());
+
+        User user = users.get(0);
+
+        assertEquals(4L, user.getId());
+        assertEquals("Peter", user.getFirstName());
+        assertFalse(user.isBillable());
+    }
+
+    @Test
+    void testFindAll() {
+        List<User> users = userService.findAll();
+
+        assertEquals(4, users.size());
     }
 }

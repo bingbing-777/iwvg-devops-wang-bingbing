@@ -12,9 +12,6 @@ public class User {
     private String province;
     private String postalCode;
 
-    public User() {
-    }
-
     public User(Long id, String firstName, String familyName, String email,
                 String identity, String address, String city,
                 String province, String postalCode) {
@@ -63,5 +60,16 @@ public class User {
 
     public String getPostalCode() {
         return postalCode;
+    }
+
+    public boolean isBillable() {
+        return firstName != null && !firstName.isBlank()
+                && familyName != null && !familyName.isBlank()
+                && email != null && !email.isBlank()
+                && identity != null && !identity.isBlank()
+                && address != null && !address.isBlank()
+                && city != null && !city.isBlank()
+                && province != null && !province.isBlank()
+                && postalCode != null && !postalCode.isBlank();
     }
 }
