@@ -72,4 +72,22 @@ public class UserServiceTest {
 
         assertEquals(4, users.size());
     }
+
+    @Test
+    void testDeleteByIdExistingUser() {
+        userService.deleteById(2L);
+
+        User user = userService.findById(2L);
+
+        assertNull(user);
+    }
+
+    @Test
+    void testDeleteByIdNonExistingUser() {
+        userService.deleteById(999L);
+
+        List<User> users = userService.findAll();
+
+        assertEquals(4, users.size());
+    }
 }
