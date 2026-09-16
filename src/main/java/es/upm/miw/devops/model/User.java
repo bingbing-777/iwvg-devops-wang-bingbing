@@ -64,7 +64,7 @@ public class User {
         return postalCode;
     }
 
-    public boolean isBillable() {
+    public boolean billable() {
         return firstName != null && !firstName.isBlank()
                 && familyName != null && !familyName.isBlank()
                 && email != null && !email.isBlank()
