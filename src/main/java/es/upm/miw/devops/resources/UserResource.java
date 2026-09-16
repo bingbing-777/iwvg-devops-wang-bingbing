@@ -21,12 +21,12 @@ public class UserResource {
     }
 
     @GetMapping("/user")
-    public List<User> findUsers(@RequestParam(required = false) Boolean billable) {
-        if (billable == null) {
-            return userService.findAll();
-        }
+    public List<User> findUsers(
+            @RequestParam(required = false) Boolean active,
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) Boolean billable) {
 
-        return userService.findByBillable(billable);
+        return userService.findByFilters(active, city, billable);
     }
 
     @DeleteMapping("/user/{id}")

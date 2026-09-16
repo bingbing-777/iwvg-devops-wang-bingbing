@@ -43,34 +43,29 @@ public class UserServiceTest {
     }
 
     @Test
-    void testFindByBillableTrue() {
-        List<User> users = userService.findByBillable(true);
-
-        assertEquals(3, users.size());
-
-        for (User user : users) {
-            assertTrue(user.isBillable());
-        }
-    }
-
-    @Test
-    void testFindByBillableFalse() {
-        List<User> users = userService.findByBillable(false);
+    void testFindByFiltersBillableTrue() {
+        List<User> users = userService.findByFilters(false, "Barcelona", true);
 
         assertEquals(1, users.size());
 
         User user = users.get(0);
 
-        assertEquals(4L, user.getId());
-        assertEquals("Peter", user.getFirstName());
-        assertFalse(user.isBillable());
+        assertFalse(user.isActive());
+        assertEquals("Barcelona", user.getCity());
+        assertTrue(user.billable());
     }
 
     @Test
-    void testFindAll() {
-        List<User> users = userService.findAll();
+    void testFindByFiltersBillableFalse() {
+        List<User> users = userService.findByFilters(true, "Madrid", false);
 
-        assertEquals(4, users.size());
+        assertEquals(1, users.size());
+
+        User user = users.get(0);
+
+        assertTrue(user.isActive());
+        assertEquals("Madrid", user.getCity());
+        assertFalse(user.billable());
     }
 
     @Test

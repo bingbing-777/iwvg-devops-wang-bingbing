@@ -81,13 +81,24 @@ public class UserDatabase {
         return users;
     }
 
-    public List<User> findByBillable(Boolean billable) {
+    public List<User> findByFilters(Boolean active, String city, Boolean billable) {
         List<User> result = new ArrayList<>();
 
         for (User user : users) {
-            if (user.isBillable() == billable) {
-                result.add(user);
+
+            if (active != null && user.isActive() != active) {
+                continue;
             }
+
+            if (city != null && !user.getCity().equalsIgnoreCase(city)) {
+                continue;
+            }
+
+            if (billable != null && user.billable() != billable) {
+                continue;
+            }
+
+            result.add(user);
         }
 
         return result;

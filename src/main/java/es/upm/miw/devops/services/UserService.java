@@ -23,8 +23,8 @@ public class UserService {
         return userDatabase.findAll();
     }
 
-    public List<User> findByBillable(Boolean billable) {
-        return userDatabase.findByBillable(billable);
+    public List<User> findByFilters(Boolean active, String city, Boolean billable) {
+        return userDatabase.findByFilters(active, city, billable);
     }
 
     public void deleteById(Long id) {
