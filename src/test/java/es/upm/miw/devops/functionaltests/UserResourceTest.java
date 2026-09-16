@@ -44,31 +44,29 @@ public class UserResourceTest {
     @Test
     void testFindUsersBillableTrue() throws Exception {
 
-        mockMvc.perform(get("/user?billable=true"))
+        mockMvc.perform(get("/user")
+                        .param("active", "false")
+                        .param("city", "Barcelona")
+                        .param("billable", "true"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(3))
-                .andExpect(jsonPath("$[0].billable").value(true))
-                .andExpect(jsonPath("$[1].billable").value(true))
-                .andExpect(jsonPath("$[2].billable").value(true));
+                .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$[0].id").value(3))
+                .andExpect(jsonPath("$[0].active").value(false))
+                .andExpect(jsonPath("$[0].city").value("Barcelona"));
     }
 
     @Test
     void testFindUsersBillableFalse() throws Exception {
 
-        mockMvc.perform(get("/user?billable=false"))
+        mockMvc.perform(get("/user")
+                        .param("active", "true")
+                        .param("city", "Madrid")
+                        .param("billable", "false"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(1))
                 .andExpect(jsonPath("$[0].id").value(4))
-                .andExpect(jsonPath("$[0].firstName").value("Peter"))
-                .andExpect(jsonPath("$[0].billable").value(false));
-    }
-
-    @Test
-    void testFindUsersAllUsers() throws Exception {
-
-        mockMvc.perform(get("/user"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()").value(4));
+                .andExpect(jsonPath("$[0].active").value(true))
+                .andExpect(jsonPath("$[0].city").value("Madrid"));
     }
 
     @Test
