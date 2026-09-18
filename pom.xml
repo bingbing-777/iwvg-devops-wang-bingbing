@@ -136,7 +136,7 @@
                     </execution>
                     <execution>
                         <id>default-report</id>
-                        <phase>post-integration-test</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
@@ -149,6 +149,7 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <argLine>
+                        @{argLine}
                         -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar
                         -Xshare:off
                     </argLine>
@@ -170,6 +171,10 @@
                             <includes>
                                 <include>**/*IT.java</include>
                             </includes>
+                            <argLine>
+                                @{argLine}
+                                -Xshare:off
+                            </argLine>
                         </configuration>
                     </execution>
                     <!-- 2) Functional Tests -->
@@ -183,6 +188,10 @@
                             <includes>
                                 <include>**/*FT.java</include>
                             </includes>
+                            <argLine>
+                                @{argLine}
+                                -Xshare:off
+                            </argLine>
                         </configuration>
                     </execution>
                     <!-- 3) Verificación final (reporta fallos si algún IT o FT falla) -->
