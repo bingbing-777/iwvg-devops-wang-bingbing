@@ -155,4 +155,38 @@ public class UserServiceTest {
         assertNull(userService.findById(999L));
         assertEquals(4, userService.findAll().size());
     }
+
+    @Test
+    void testUpdateUsersActive() {
+        User user1 = userService.findById(1L);
+        User user2 = userService.findById(2L);
+        User user4 = userService.findById(4L);
+
+        assertFalse(user1.isActive());
+        assertFalse(user2.isActive());
+        assertTrue(user4.isActive());
+
+        List<User> usersToUpdate = List.of(
+                new User(1L, null, null, null, null, null, null, null, null, true),
+                new User(2L, null, null, null, null, null, null, null, null, true),
+                new User(4L, null, null, null, null, null, null, null, null, false)
+        );
+
+        userService.updateUsersActive(usersToUpdate);
+
+        assertTrue(user1.isActive());
+        assertTrue(user2.isActive());
+        assertFalse(user4.isActive());
+    }
+
+    @Test
+    void testUpdateUsersActiveNonExistingUser() {
+        List<User> usersToUpdate = List.of(
+                new User(999L, null, null, null, null, null, null, null, null, true)
+        );
+
+        userService.updateUsersActive(usersToUpdate);
+
+        assertNull(userService.findById(999L));
+    }
 }

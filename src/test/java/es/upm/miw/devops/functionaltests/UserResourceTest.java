@@ -173,4 +173,58 @@ public class UserResourceTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(4));
     }
+
+    @Test
+    void testUpdateUsersActive() throws Exception {
+        mockMvc.perform(patch("/user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                        [
+                            {
+                                "id": 1,
+                                "active": true
+                            },
+                            {
+                                "id": 2,
+                                "active": true
+                            },
+                            {
+                                "id": 4,
+                                "active": false
+                            }
+                        ]
+                        """))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/user/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.active").value(true));
+
+        mockMvc.perform(get("/user/2"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.active").value(true));
+
+        mockMvc.perform(get("/user/4"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.active").value(false));
+    }
+
+    @Test
+    void testUpdateUsersActiveNonExistingUser() throws Exception {
+        mockMvc.perform(patch("/user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                        [
+                            {
+                                "id": 999,
+                                "active": true
+                            }
+                        ]
+                        """))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/user/999"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(""));
+    }
 }
