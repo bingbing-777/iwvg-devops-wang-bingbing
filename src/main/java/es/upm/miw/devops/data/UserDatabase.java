@@ -115,4 +115,20 @@ public class UserDatabase {
             user.setActive(true);
         }
     }
+
+    public void updateUser(Long id, User updatedUser) {
+        User user = findById(id);
+
+        if (user != null) {
+            user.setFirstName(updatedUser.getFirstName());
+            user.setFamilyName(updatedUser.getFamilyName());
+            user.setEmail(updatedUser.getEmail());
+            user.setIdentity(updatedUser.getIdentity());
+            user.setAddress(updatedUser.getAddress());
+            user.setCity(updatedUser.getCity());
+            user.setProvince(updatedUser.getProvince());
+            user.setPostalCode(updatedUser.getPostalCode());
+            user.setActive(updatedUser.isActive());
+        }
+    }
 }
