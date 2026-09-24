@@ -34,4 +34,8 @@ public class UserService {
     public void updateActive(Long id) {
         userDatabase.updateActive(id);
     }
+
+    public void updateUser(Long id, User user) {
+        userDatabase.updateUser(id, user);
+    }
 }
