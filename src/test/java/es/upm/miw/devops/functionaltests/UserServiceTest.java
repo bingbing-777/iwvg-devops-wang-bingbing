@@ -107,4 +107,52 @@ public class UserServiceTest {
 
         assertTrue(user.isActive());
     }
+
+    @Test
+    void testUpdateUserExistingUser() {
+        User user = new User(
+                1L,
+                "Anna Updated",
+                "Smith Updated",
+                "anna.updated@gmail.com",
+                "99999999Z",
+                "New Street 100",
+                "Barcelona",
+                "Barcelona",
+                "08002",
+                true
+        );
+        userService.updateUser(1L, user);
+        User updatedUser = userService.findById(1L);
+        assertNotNull(updatedUser);
+        assertEquals(1L, updatedUser.getId());
+        assertEquals("Anna Updated", updatedUser.getFirstName());
+        assertEquals("Smith Updated", updatedUser.getFamilyName());
+        assertEquals("anna.updated@gmail.com", updatedUser.getEmail());
+        assertEquals("99999999Z", updatedUser.getIdentity());
+        assertEquals("New Street 100", updatedUser.getAddress());
+        assertEquals("Barcelona", updatedUser.getCity());
+        assertEquals("Barcelona", updatedUser.getProvince());
+        assertEquals("08002", updatedUser.getPostalCode());
+        assertTrue(updatedUser.isActive());
+    }
+
+    @Test
+    void testUpdateUserNonExistingUser() {
+        User user = new User(
+                999L,
+                "John",
+                "Doe",
+                "john@gmail.com",
+                "11111111A",
+                "Unknown Street",
+                "Madrid",
+                "Madrid",
+                "28000",
+                true
+        );
+        userService.updateUser(999L, user);
+        assertNull(userService.findById(999L));
+        assertEquals(4, userService.findAll().size());
+    }
 }
