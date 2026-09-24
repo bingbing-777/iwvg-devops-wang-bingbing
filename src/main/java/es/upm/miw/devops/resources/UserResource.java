@@ -38,4 +38,15 @@ public class UserResource {
     public void updateActive(@PathVariable Long id) {
         userService.updateActive(id);
     }
+
+    @PutMapping("/user/{id}")
+    public void updateUser(@PathVariable Long id, @RequestBody User user) {
+        userService.updateUser(id, user);
+    }
+
+    @PatchMapping("/user")
+    public void updateUsersActive(@RequestBody List<User> users) {
+        userService.updateUsersActive(users);
+    }
+
 }
