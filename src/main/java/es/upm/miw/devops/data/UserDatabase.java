@@ -115,14 +115,4 @@ public class UserDatabase {
             user.setActive(true);
         }
     }
-
-    public void updateUsersActive(List<User> usersToUpdate) {
-        for (User userToUpdate : usersToUpdate) {
-            User user = findById(userToUpdate.getId());
-
-            if (user != null) {
-                user.setActive(userToUpdate.isActive());
-            }
-        }
-    }
 }
