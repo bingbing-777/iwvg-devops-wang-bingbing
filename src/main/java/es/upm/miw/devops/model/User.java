@@ -12,10 +12,11 @@ public class User {
     private String province;
     private String postalCode;
     private boolean active;
+    private String role;
 
     public User(Long id, String firstName, String familyName, String email,
                 String identity, String address, String city,
-                String province, String postalCode, boolean active) {
+                String province, String postalCode, boolean active, String role) {
         this.id = id;
         this.firstName = firstName;
         this.familyName = familyName;
@@ -26,6 +27,7 @@ public class User {
         this.province = province;
         this.postalCode = postalCode;
         this.active = active;
+        this.role = role;
     }
 
     public Long getId() {
@@ -62,6 +64,14 @@ public class User {
 
     public String getPostalCode() {
         return postalCode;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public boolean billable() {
