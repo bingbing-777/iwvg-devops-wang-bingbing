@@ -12,8 +12,11 @@
 ### Estado del código
 [![DevOps](https://github.com/bingbing-777/iwvg-devops-wang-bingbing/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/bingbing-777/iwvg-devops-wang-bingbing/actions/workflows/continuous-integration.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bingbing-777_iwvg-devops-wang-bingbing&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=bingbing-777_iwvg-devops-wang-bingbing)
+[![CD AWS](https://github.com/bingbing-777/iwvg-devops-wang-bingbing/actions/workflows/cd-master.yml/badge.svg)](https://github.com/bingbing-777/iwvg-devops-wang-bingbing/actions/workflows/cd-master.yml)
+ 
+Render: [![Render broken](https://iwvg-devops-wang-bingbing.onrender.com/version-badge)](https://iwvg-devops-wang-bingbing.onrender.com/swagger-ui.html)
 
-
+AWS: [![AWS](http://35.180.166.35:8085/version-badge)](http://35.180.166.35:8085/swagger-ui.html)
 
 ### Tecnologías necesarias
 `Java` `Maven` `GitHub` `GitHub Actions` `Sonarcloud` `Slack` `Spring-Boot` `GitHub Packages` `Docker` `OpenAPI`
