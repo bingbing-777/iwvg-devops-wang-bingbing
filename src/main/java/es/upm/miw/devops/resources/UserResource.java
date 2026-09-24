@@ -48,4 +48,5 @@ public class UserResource {
     public void updateUsersActive(@RequestBody List<User> users) {
         userService.updateUsersActive(users);
     }
+
 }

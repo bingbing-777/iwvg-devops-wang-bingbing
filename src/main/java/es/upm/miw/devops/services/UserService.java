@@ -42,4 +42,5 @@ public class UserService {
     public void updateUsersActive(List<User> users) {
         userDatabase.updateUsersActive(users);
     }
+
 }
