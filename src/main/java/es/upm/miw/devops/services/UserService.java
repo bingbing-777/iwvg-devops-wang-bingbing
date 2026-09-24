@@ -38,4 +38,8 @@ public class UserService {
     public void updateUser(Long id, User user) {
         userDatabase.updateUser(id, user);
     }
+
+    public void updateUsersActive(List<User> users) {
+        userDatabase.updateUsersActive(users);
+    }
 }
