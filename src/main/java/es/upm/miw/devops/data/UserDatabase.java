@@ -25,7 +25,8 @@ public class UserDatabase {
                 "Madrid",
                 "Madrid",
                 "28001",
-                false
+                true,
+                "ADMIN"
         ));
 
         users.add(new User(
@@ -38,7 +39,8 @@ public class UserDatabase {
                 "Madrid",
                 "Madrid",
                 "28002",
-                false
+                false,
+                "USER"
         ));
 
         users.add(new User(
@@ -51,7 +53,8 @@ public class UserDatabase {
                 "Barcelona",
                 "Barcelona",
                 "08001",
-                false
+                false,
+                "USER"
         ));
 
         users.add(new User(
@@ -64,7 +67,8 @@ public class UserDatabase {
                 "Madrid",
                 "Madrid",
                 "28003",
-                true
+                true,
+                "USER"
         ));
     }
 
@@ -129,6 +133,7 @@ public class UserDatabase {
             user.setProvince(updatedUser.getProvince());
             user.setPostalCode(updatedUser.getPostalCode());
             user.setActive(updatedUser.isActive());
+            user.setRole(updatedUser.getRole());
         }
     }
 
@@ -137,6 +142,9 @@ public class UserDatabase {
             User user = findById(userToUpdate.getId());
 
             if (user != null) {
+                if ("ADMIN".equals(user.getRole()) && !userToUpdate.isActive()) {
+                    continue;
+                }
                 user.setActive(userToUpdate.isActive());
             }
         }
