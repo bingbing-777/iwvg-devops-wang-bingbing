@@ -131,7 +131,8 @@ public class UserResourceTest {
                                 "city": "Barcelona",
                                 "province": "Barcelona",
                                 "postalCode": "08002",
-                                "active": true
+                                "active": true,
+                                "role": "ADMIN"
                             }
                             """))
                 .andExpect(status().isOk());
@@ -147,7 +148,8 @@ public class UserResourceTest {
                 .andExpect(jsonPath("$.city").value("Barcelona"))
                 .andExpect(jsonPath("$.province").value("Barcelona"))
                 .andExpect(jsonPath("$.postalCode").value("08002"))
-                .andExpect(jsonPath("$.active").value(true));
+                .andExpect(jsonPath("$.active").value(true))
+                .andExpect(jsonPath("$.role").value("ADMIN"));
     }
 
     @Test
@@ -164,7 +166,8 @@ public class UserResourceTest {
                                 "city": "Madrid",
                                 "province": "Madrid",
                                 "postalCode": "28000",
-                                "active": true
+                                "active": true,
+                                "role": "USER"
                             }
                             """))
                 .andExpect(status().isOk());
@@ -181,11 +184,11 @@ public class UserResourceTest {
                         .content("""
                         [
                             {
-                                "id": 1,
+                                "id": 2,
                                 "active": true
                             },
                             {
-                                "id": 2,
+                                "id": 3,
                                 "active": true
                             },
                             {
@@ -196,11 +199,11 @@ public class UserResourceTest {
                         """))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(get("/user/1"))
+        mockMvc.perform(get("/user/2"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.active").value(true));
 
-        mockMvc.perform(get("/user/2"))
+        mockMvc.perform(get("/user/3"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.active").value(true));
 
@@ -226,5 +229,25 @@ public class UserResourceTest {
         mockMvc.perform(get("/user/999"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(""));
+    }
+
+    @Test
+    void testUpdateUsersActiveAdminCannotBeDeactivated() throws Exception {
+
+        mockMvc.perform(patch("/user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                        [
+                            {
+                                "id": 1,
+                                "active": false
+                            }
+                        ]
+                        """))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/user/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.active").value(true));
     }
 }
