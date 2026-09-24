@@ -107,4 +107,86 @@ public class UserServiceTest {
 
         assertTrue(user.isActive());
     }
+
+    @Test
+    void testUpdateUserExistingUser() {
+        User user = new User(
+                1L,
+                "Anna Updated",
+                "Smith Updated",
+                "anna.updated@gmail.com",
+                "99999999Z",
+                "New Street 100",
+                "Barcelona",
+                "Barcelona",
+                "08002",
+                true
+        );
+        userService.updateUser(1L, user);
+        User updatedUser = userService.findById(1L);
+        assertNotNull(updatedUser);
+        assertEquals(1L, updatedUser.getId());
+        assertEquals("Anna Updated", updatedUser.getFirstName());
+        assertEquals("Smith Updated", updatedUser.getFamilyName());
+        assertEquals("anna.updated@gmail.com", updatedUser.getEmail());
+        assertEquals("99999999Z", updatedUser.getIdentity());
+        assertEquals("New Street 100", updatedUser.getAddress());
+        assertEquals("Barcelona", updatedUser.getCity());
+        assertEquals("Barcelona", updatedUser.getProvince());
+        assertEquals("08002", updatedUser.getPostalCode());
+        assertTrue(updatedUser.isActive());
+    }
+
+    @Test
+    void testUpdateUserNonExistingUser() {
+        User user = new User(
+                999L,
+                "John",
+                "Doe",
+                "john@gmail.com",
+                "11111111A",
+                "Unknown Street",
+                "Madrid",
+                "Madrid",
+                "28000",
+                true
+        );
+        userService.updateUser(999L, user);
+        assertNull(userService.findById(999L));
+        assertEquals(4, userService.findAll().size());
+    }
+
+    @Test
+    void testUpdateUsersActive() {
+        User user1 = userService.findById(1L);
+        User user2 = userService.findById(2L);
+        User user4 = userService.findById(4L);
+
+        assertFalse(user1.isActive());
+        assertFalse(user2.isActive());
+        assertTrue(user4.isActive());
+
+        List<User> usersToUpdate = List.of(
+                new User(1L, null, null, null, null, null, null, null, null, true),
+                new User(2L, null, null, null, null, null, null, null, null, true),
+                new User(4L, null, null, null, null, null, null, null, null, false)
+        );
+
+        userService.updateUsersActive(usersToUpdate);
+
+        assertTrue(user1.isActive());
+        assertTrue(user2.isActive());
+        assertFalse(user4.isActive());
+    }
+
+    @Test
+    void testUpdateUsersActiveNonExistingUser() {
+        List<User> usersToUpdate = List.of(
+                new User(999L, null, null, null, null, null, null, null, null, true)
+        );
+
+        userService.updateUsersActive(usersToUpdate);
+
+        assertNull(userService.findById(999L));
+    }
 }
